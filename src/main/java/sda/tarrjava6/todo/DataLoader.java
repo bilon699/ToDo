@@ -4,30 +4,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import sda.tarrjava6.todo.entity.ItemEntity;
-import sda.tarrjava6.todo.repository.ItemRepository;
-
-import java.util.Date;
+import sda.tarrjava6.todo.entity.ToDoEntity;
+import sda.tarrjava6.todo.repository.ToDoRepository;
 
 @Component
 public class DataLoader implements ApplicationRunner {
 
-
     @Autowired
-    private ItemRepository itemRepository;
+    private ToDoRepository toDoRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        for ( int i =0; i < 10; i++ ) {
-
-            ItemEntity entity = new ItemEntity();
-            entity.setName("item nr " + (i + 1));
-            entity.setDate(new Date());
-
-            itemRepository.save(entity);
+        for (int i = 1; i <= 15; i++) {
+            insertTodo(i, false);
+            insertTodo(i, true);
         }
+    }
 
+    private void insertTodo(int index, boolean completed) {
+        ToDoEntity todo = new ToDoEntity();
+        todo.setName("Zadanie " + index);
+        todo.setCompleted(completed);
 
+        toDoRepository.save(todo);
     }
 }
