@@ -10,6 +10,12 @@
     <table>
         <tr th:each="todos : ${todos}">
 
+            <td th:text="${todos.name}" />
+
+            <td th:text="${todos.createDate}" />
+
+            <td th:text="${todos.id}" />
+
         </tr>
     </table>
 </body>
